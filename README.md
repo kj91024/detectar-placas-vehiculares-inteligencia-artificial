@@ -34,24 +34,32 @@ Todos los archivos deben estar dentro de una misma carpeta, de la siguiente mane
 
 ### Entramiento en Google Colab
 Recomendamos realizarlo en Google Colab para que sea más rápido y no malogres tu computadora, para ello deberas usar los siguientes comandos dentro de la plataforma:
-   
-#### Configurar GPU
-En Google Colab: "Runtime" > "Change runtime type", en "Hardware accelerator" es GPU, en "GPU type" es A100 y en "Runtime shape" es High-RAM sin ninguna selección.
-
-    !nvidia-smi
     
-#### Para el entrenamiento
-
+    !cd /content && git clone https://github.com/kj91024/detectar-placas-vehiculares-inteligencia-artificial.git
+---
     !pip install ultralytics
-
-    !git clone 
-
-    from ultralytics import YOLO
-    import os
-    from IPython.display import display, Image
-    from IPython import display
-    display.clear_output()
-    !yolo checks
+---
+    import locale
+    locale.getpreferredencoding = lambda: "UTF-8"
+---
+    !unzip /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/car-1.zip -d /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/car-1
+    #!unzip /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/car-2.zip -d /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/car-2
+    !unzip /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/car-3.zip -d /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/car-3
     
-
-    !yolo task=detect mode=train model=yolov8s.pt conf=0.25 data=/content/drive/data
+    !unzip /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/plates/plate-1.zip -d /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/plates/plate-1
+    !unzip /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/plates/plate-2.zip -d /content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/plates/plate-2
+---
+    from ultralytics import YOLO
+---
+    #================== Configuracion base ==================
+    path = '/content/detectar-placas-vehiculares-inteligencia-artificial/datasets/for_training/cars/'
+    folder = 'car-1'
+    epochs = 100
+    output = '/models/asd'
+    
+    # =======================================================
+    
+    data =  path + folder + '/data.yaml'
+    model = YOLO('datasets/models/yolov8n.pt')
+    results = model.train(data=data, epochs=epochs)
+    success = model.export(device=True)
