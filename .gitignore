@@ -1,9 +1,9 @@
 /datasets/detections/cars/*.png
 /datasets/detections/plates/*.png
 /datasets/detections/*.png
-#/datasets/for_detections/images/*.png
-#/datasets/for_detections/videos/in/*.mp4
-#/datasets/for_detections/videos/out/*.mp4
+/datasets/for_detections/images/*.jpeg
+/datasets/for_detections/videos/in/*.mp4
+/datasets/for_detections/videos/out/*.mp4
 /datasets/for_training/cars/*.yolov8/
 /datasets/for_training/plates/*.yolov8/
 /Photos-001
@@ -11,3 +11,5 @@
 /venv
 /runs
 /.idea
+/test
+/*.mp4
